@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+
+    <link rel="icon" type="png|image" href="/IMAGES/sailogo.png">
+    <style>
+/* Paste your entire CSS here */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: black;
+    color: rgb(255, 255, 255);
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 10%;
+    background: transparent;
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0.548), green, rgba(0, 0, 0, 0.548));
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    /* border-radius: 100px; */
+}
+
+.logo {
+    font-size: 25px;
+    color: green;
+    text-shadow: 5px 5px 10px black;
+    text-decoration: none;
+    font-weight: 600;
+    pointer-events: none;
+    opacity: 0;
+    animation: slideTop 1s ease forwards;
+    
+}
+
+.navbar a {
+    display: inline-block;
+    font-size: 18px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 35px;
+    opacity: 0;
+    animation: slideTop .5s ease forwards;
+    animation-delay: calc(.2s * var(--i));
+}
+.navbar a::after {
+    content: '';
+    width: 0;
+    height: 2px;
+    background: black;
+    border-radius: 50%;
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    transition: 0.6s;
+}
+
+.navbar a:hover::after {
+    width: 100%;
+}
+
+.navbar a:hover {
+    background: linear-gradient(45deg, rgb(0, 0, 0), rgb(0, 0, 0));
+    -webkit-text-fill-color: transparent;
+    background-clip: border-box;
+    -webkit-background-clip: text;
+}
+
+.home {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 70px 10% 0;
+}
+
+.home-content {
+    max-width: 600px;
+    padding: 50px;
+    /* margin-left: -30px; */
+}
+
+.home-content h1 {
+    font-size: 56px;
+    font-weight: 700;
+    line-height: 1.2;
+    opacity: 0;
+    animation: slideRight 1s ease forwards;
+    animation-delay: .7s;
+}   
+
+.home-content h3 {
+    font-size: 32px;
+    font-weight: 700;
+    opacity: 0;
+    animation: slideLeft 1s ease forwards;
+    animation-delay: 1s;
+}
+
+.mu {
+    margin-top: 50px;
+}
+
+.home-content h1, h3 {
+    text-shadow: 5px 4px 10px green;
+}
+
+.home-content h3 span {
+    color: rgb(0, 255, 0);
+}
+
+.home-content p {
+    font-size: 16px;
+    margin: 20px 0 0;
+    text-align: left;
+    opacity: 0;
+    animation: slideLeft 1s ease forwards;
+    animation-delay: 1.3s;
+}
+
+.home-sci a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background: black;
+    border: 2px solid green;
+    border-radius: 50%;
+    font-size: 20px;
+    color: green;
+    text-decoration: none;
+    margin: 30px 15px 30px 0;
+    opacity: 0;
+    animation: zoomIn 1s ease forwards;
+    animation-delay: 0.4s;
+    
+}
+
+.home-sci a:hover {
+    background: green;
+    color: black;
+    box-shadow: 0 0 20px green;
+}
+
+.btn-box {
+    display: inline-block;
+    padding: 12px 28px;
+    background: green;
+    border-radius: 40px;
+    font-size: 16px;
+    color: black;
+    letter-spacing: 1px;
+    text-decoration: none;
+    font-weight: 600;
+    opacity: 0;
+    animation: zoomIn 1s ease forwards;
+    animation-delay: 0.4s;
+}
+
+.btn-box:hover {
+    box-shadow: 0 0 5px green,
+    0 0 25px green, 0 0 50px green,
+    0 0 100px green, 0 0 200px green;
+}
+
+.home-img {
+    width: 410px;
+    height: 410px;
+    opacity: 0;
+    animation: zoomIn 1s ease forwards, floatImage 4s ease-in-out infinite;
+    animation-delay: 2.1s, 3.1s;
+}
+
+.home-img .glowing-circle {
+    width: 100%;
+    height: 100%;
+   
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-img .glowing-circle::after {
+    content: '';
+    position: absolute;
+    width: 380px;
+    height: 380px;
+    background-color:black;
+    border-radius: 50%;
+}
+
+.glowing-circle span {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(black, rgba(0, 128, 0, 0.411));
+    border-radius: 50%;
+    animation: circleRotate 5s linear infinite;
+}
+
+.glowing-circle span:nth-child(1) {
+    filter: blur(10px);
+}
+
+.image img {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%);
+    max-width: 350px;
+    object-fit: cover;
+}
+
+.glowing-circle .image {
+    position: relative;
+    width: 380px;
+    height: 380px;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.navbar-1 a {
+    font-size: 18px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 50px;
+    text-align-last: center;
+}
+
+.navbar-1 a.active, 
+.navbar-1 a:hover {
+    background: linear-gradient(45deg, rgb(0, 0, 0), rgb(0, 0, 0));
+    -webkit-text-fill-color: transparent;
+    background-clip: border-box;
+    -webkit-background-clip: text;
+}
+
+canvas {
+    position: fixed;
+    top: auto;
+    left: auto;
+    background-color: black;
+    z-index: -1;
+    background-size:cover;
+    background-blend-mode: multiply;
+    background-size: auto;
+    scroll-behavior: smooth;
+}
+
+
+/* ---------------------------About----------------------- */
+
+.about {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 70px 10% 0;
+    margin-top: 10% ;
+}
+    
+.about-img img{
+    padding: auto;
+}
+
+.about-content h3{
+    font-size: 32px;
+    font-weight: 700;
+    opacity: 0;
+    animation: slideLeft 1s ease forwards;
+    animation-delay: 1s;
+}
+
+.about-content p{
+    font-size: 16px;
+    margin: 20px 0 0;
+    text-align: left;
+    opacity: 0;
+    animation: slideLeft 1s ease forwards;
+    animation-delay: 1.3s;
+}
+
+/* Animation */
+@keyframes slideTop {
+    0% {
+        opacity: 0;
+        transform: translateY(100px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }    
+}
+
+@keyframes slideRight {
+    0% {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }    
+}
+
+@keyframes slideLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }    
+}
+
+@keyframes zoomIn {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes floatImage {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-24px);
+    }
+
+    100%{
+        transform: translate(0);
+    }
+}
+
+@keyframes circleRotate {
+    0% {
+        transform: rotate(0);
+    }
+    
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+/* ----------- General Section Styling ----------- */
+section {
+  padding: 60px 10%;
+  color: #00ff00;
+  animation: fadeIn 1.5s ease-in-out forwards;
+}
+
+.section-title {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  text-align: center;
+  color: #00ff00;
+  text-shadow: 0 0 8px #00ff00;
+}
+
+/* ----------- About Section Fix ----------- */
+.about {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: left;
+  min-height: 100vh;
+  background-color: rgba(0, 255, 0, 0.02);
+}
+
+.about-content {
+  max-width: 800px;
+  animation: slideLeft 1s ease forwards;
+}
+
+.about-content h3 {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #00ff00;
+  text-shadow: 0 0 5px #00ff00;
+}
+
+.about-content p {
+  font-size: 18px;
+  color: #aaffaa;
+}
+
+/* ----------- Skills ----------- */
+.skills-list {
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+  padding: 0;
+}
+
+.skills-list li {
+  background: rgba(0, 255, 0, 0.1);
+  padding: 10px 20px;
+  border-left: 3px solid #00ff00;
+  box-shadow: inset 0 0 10px #00ff00;
+  border-radius: 5px;
+  transition: transform 0.2s ease;
+}
+
+.skills-list li:hover {
+  transform: translateX(10px);
+}
+
+/* ----------- Projects ----------- */
+.project-card {
+  background: rgba(0, 255, 0, 0.07);
+  border: 1px solid #00ff00;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.project-card:hover {
+  background: rgba(0, 255, 0, 0.15);
+  box-shadow: 0 0 10px #00ff00;
+}
+
+/* ----------- Certificates ----------- */
+.certificates-list {
+  list-style-type: square;
+  color: #aaffaa;
+  padding-left: 20px;
+}
+
+.certificates-list li {
+  margin-bottom: 10px;
+}
+
+/* ----------- Contact Form ----------- */
+.contact-section form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 500px;
+  margin: auto;
+}
+
+.contact-section input,
+.contact-section textarea {
+  background-color: #000;
+  border: 1px solid #00ff00;
+  color: #00ff00;
+  padding: 12px;
+  border-radius: 5px;
+}
+
+.contact-section button {
+  background-color: #000;
+  border: 1px solid #00ff00;
+  color: #00ff00;
+  padding: 12px;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+.contact-section button:hover {
+  background-color: #00ff00;
+  color: #000;
+}
+
+/* ----------- Footer ----------- */
+footer {
+  text-align: center;
+  padding: 20px;
+  border-top: 1px solid #00ff00;
+  color: #00ff00;
+  background-color: rgba(0, 255, 0, 0.05);
+  font-size: 0.9em;
+}
+
+</style>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+
+</head>
+<body>
+<canvas id="matrixCanvas" style="position: fixed; top: 0; left: 0; z-index: -1;"></canvas>
+
+    <header class="header">
+        <a href="#" class="logo">{Portfolio} </a>
+
+        <nav class="navbar">
+            <a href="#home" style="--i:1;" class="active">Home</a>
+            <a href="#about" style="--i:2;">About</a>
+            <a href="#skill" style="--i:3;">Skills</a>
+            <a href="#project" style="--i:4;">Projects</a>
+            <a href="#contact" style="--i:5;">Contact</a>
+        </nav>
+    </header>
+
+    <section id="home" class="home">
+
+        <div class="home-content" data-scroll data-scroll-speed="-5" >
+            <h3 class="mu">Hello, It's me</h3>
+            <h1>Kritika Mishra</h1>
+            <h3>And I'm a <span class="pro-text">
+                <script>
+                   var typed = new Typed(".pro-text", {
+                      strings: [
+                        "Ethical Hacking Enthusiast",
+                        "Software Developer",
+                        "Programmer",
+                        "Aspiring Cybersecurity Professional",
+                        
+                      ],
+                      typeSpeed: 100,   
+                      backSpeed: 100,   
+                      backDelay: 1000,  
+                      loop: true        
+                    });
+                </script>
+            </span></h3>
+            
+            <p>  &emsp; &emsp;This portfolio highlights my passion for cybersecurity and my commitment to ethical practices. <br> <br>
+                &emsp; &emsp;I have acquired fundamental knowledge and skills in various areas of ethical hacking, 
+                allowing me to contribute to the security of organizations and individuals. <br> <br>
+                
+            </p>
+
+            <div class="home-sci">
+                <a href="https://github.com/Preet416" target="_blank"><i class='bx bxl-github'></i></a>
+                <a href="https://www.linkedin.com/in/kritika-m-79440734a/" target="_blank"><i class='bx bxl-linkedin' ></i></a>
+                <a href="https://wa.me/8419999705" target="_blank"><i class='bx bxl-whatsapp'></i></a>
+                
+            </div>
+           <a href="" class="btn-box" download="">Download CV</a>
+        </div>
+
+        <div class="home-img">
+            <div class="glowing-circle">
+                <span></span>
+                <span></span>
+                <div class="image">
+                    <img src="saianon.png" alt="">
+                </div>
+            </div>
+        </div>
+
+    </section>
+<!-- About Section -->
+<section id="about" class="about">
+  <div class="about-content">
+    <h3>About Me</h3>
+    <p>
+      I'm Kritika, a passionate ethical hacker and developer. I love exploring how systems work and how to make them secure. 
+      I enjoy blending creativity with technology, whether it’s building a secure system or designing a user interface.
+    </p>
+  </div>
+</section>
+
+<!-- Skills Section -->
+<section id="skill" class="skills-section">
+  <h2 class="section-title">Skills</h2>
+  <ul class="skills-list">
+    <li>Ethical Hacking Enthusiast</li>
+ 
+    <li>Web Development (HTML, CSS, JS,React,Node js)</li>
+    <li>Blockchain Basics</li>
+  </ul>
+</section>
+
+<!-- Projects Section -->
+<section id="project" class="projects-section">
+  <h2 class="section-title">Projects</h2>
+  <div class="project-card">
+    <h3>Driveshark</h3>
+    <p>A Decentralized Cloud System using React Supabase and Pinata</p>
+  </div>
+  <div class="project-card">
+    <h3>Portfolio Website</h3>
+	<p>Personal cybersecurity portfolio showcasing skills, projects, certifications, and professional achievements.</p>
+    
+  </div>
+  
+  <div class="project-card">
+    <h3>Remote Work Management</h3>
+	<p>A full-stack platform for task management, team collaboration, and virtual meeting coordination.<p/>
+    
+  </div>
+  
+  <div class="project-card">
+    <h3>Music web application</h3>
+    <p>A web-based music streaming application with playlist management and interactive user features.</P>
+  </div>
+  
+  <div class="project-card">
+    <h3>Online Education website</h3>
+	<p>An e-learning platform enabling course management, lecture scheduling, and student-teacher interaction.</p>
+    
+  </div>
+  
+  <div class="project-card">
+    <h3>Uber Clone</h3>
+	<p>A ride-booking application featuring location tracking, ride requests, and real-time trip management.</p>
+    
+  </div>
+  
+  <div class="project-card">
+    <h3>API Testing tool</h3>
+	<p>A utility for testing, validating, and monitoring REST APIs with automated request handling.</p>
+    
+  </div>
+  
+  <div class="project-card">
+    <h3>Basic Human face detector using OpenCV</h3>
+    <p>A computer vision application that detects and identifies human faces by drawing rectangle on face in real-time using OpenCV.
+  </div>
+  
+    <div class="project-card">
+    <h3>Trading Website (CryptoTransfer)</h3>
+    
+  </div>
+</section>
+
+<!-- Certificates Section -->
+<section id="certificates" class="certificates-section">
+  <h2 class="section-title">Certificates</h2>
+  <ul class="certificates-list">
+    <li>Fundamental Algorithm Design & Analysis – Swayam Courses</li>
+    <li>Software Testing (Manual & Automation) – (UNV-SNDT)Swadhar Courses </li>
+    <li>Ethical Hacking – Kali Linux – Swadhar Courses </li>
+	<li>Internet of Things (C++) – Dalvik Apps </li>
+	<li>AI / ML  – Internshala. </li>
+  </ul>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="contact-section">
+  <h2 class="section-title">Contact Me</h2>
+  <form action="mailto:kritika@example.com" method="POST" enctype="text/plain">
+    <input type="text" placeholder="Your Name" name="name" required>
+    <input type="email" placeholder="Your Email" name="email" required>
+    <textarea name="message" rows="5" placeholder="Your Message"></textarea>
+    <button type="submit">Send</button>
+  </form>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>© 2026 Kritika Mishra. All Rights Reserved.</p>
+</footer>
+
+<script>
+  window.onload = function () {
+    const canvas = document.getElementById("matrixCanvas");
+    const ctx = canvas.getContext("2d");
+
+    const canvasWidth = window.innerWidth;
+    const canvasHeight = window.innerHeight;
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
+
+    const characters = "0123456789ABCDEF".split("");
+    const columns = Math.floor(canvasWidth / 20);
+    const yPositions = Array(columns).fill(0);
+
+    function updateMatrix() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+      ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+
+      ctx.fillStyle = "green";
+      ctx.font = "12px Times New Roman";
+
+      yPositions.forEach((y, i) => {
+        const text = characters[Math.floor(Math.random() * characters.length)];
+        const x = i * 20;
+        ctx.fillText(text, x, y);
+        yPositions[i] = y > canvasHeight && Math.random() > 0.98 ? 0 : y + 20;
+      });
+    }
+
+    function renderMatrix() {
+      requestAnimationFrame(renderMatrix);
+      updateMatrix();
+    }
+
+    renderMatrix();
+  };
+</script>
+
+</body> 
+</html> 

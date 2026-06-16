@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Advanced Text Editor</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+    }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 10px;
+      background: var(--bg-toolbar);
+      color: var(--color-toolbar);
+    }
+    .editor-container {
+      display: flex;
+      flex-direction: column;
+      height: calc(100vh - 50px);
+    }
+    textarea {
+      flex: 1;
+      width: 100%;
+      resize: none;
+      font-family: monospace;
+      font-size: 16px;
+      padding: 10px;
+      background: var(--bg-editor);
+      color: var(--color-editor);
+      border: none;
+      outline: none;
+    }
+    .light {
+      --bg-toolbar: #f0f0f0;
+      --color-toolbar: #000;
+      --bg-editor: #fff;
+      --color-editor: #000;
+    }
+    .dark {
+      --bg-toolbar: #1e1e1e;
+      --color-toolbar: #fff;
+      --bg-editor: #2e2e2e;
+      --color-editor: #fff;
+    }
+  </style>
+</head>
+<body class="light">
+  <div class="toolbar">
+    <button onclick="openFile()">Open</button>
+    <button onclick="saveFile()">Save</button>
+    <button onclick="document.execCommand('cut')">Cut</button>
+    <button onclick="document.execCommand('copy')">Copy</button>
+    <button onclick="document.execCommand('paste')">Paste</button>
+    <button onclick="document.execCommand('undo')">Undo</button>
+    <button onclick="document.execCommand('redo')">Redo</button>
+    <button onclick="toggleTheme()">Toggle Theme</button>
+  </div>
+  <div class="editor-container">
+    <textarea id="editor" spellcheck="false"></textarea>
+  </div>
+
+  <input type="file" id="fileInput" style="display: none;" />
+
+  <script>
+    const editor = document.getElementById('editor');
+
+    // Auto-indentation on Enter key
+    editor.addEventListener('keydown', function(e) {
+      if (e.key === 'Tab') {
+        e.preventDefault();
+        const start = this.selectionStart;
+        const end = this.selectionEnd;
+        this.value = this.value.substring(0, start) + "  " + this.value.substring(end);
+        this.selectionStart = this.selectionEnd = start + 2;
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        const start = this.selectionStart;
+        const before = this.value.substring(0, start);
+        const match = before.match(/(\n|^)([ \t]*)[^\n]*$/);
+        const indent = match ? match[2] : '';
+        const insert = '\n' + indent;
+        this.value = before + insert + this.value.substring(start);
+        this.selectionStart = this.selectionEnd = start + insert.length;
+      }
+    });
+
+    function saveFile() {
+      const blob = new Blob([editor.value], { type: 'text/plain' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'untitled.txt';
+      a.click();
+    }
+
+    function openFile() {
+      const fileInput = document.getElementById('fileInput');
+      fileInput.click();
+      fileInput.onchange = () => {
+        const file = fileInput.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          editor.value = e.target.result;
+        };
+        reader.readAsText(file);
+      };
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+      document.body.classList.toggle('light');
+    }
+  </script>
+</body>
+</html>
